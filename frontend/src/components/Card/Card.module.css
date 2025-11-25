@@ -1,0 +1,26 @@
+.card {
+  background-color: var(--color-white);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(101, 67, 33, 0.1);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 16px rgba(101, 67, 33, 0.15);
+}
+
+.default {
+  border: 1px solid var(--color-border);
+}
+
+.feature {
+  text-align: center;
+  padding: 2rem;
+  border: 2px solid var(--color-primary);
+}
+
+.gift {
+  border-left: 4px solid var(--color-cta);
+  margin-bottom: 1rem;
+}

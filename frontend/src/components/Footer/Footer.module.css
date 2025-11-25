@@ -1,0 +1,50 @@
+.footer {
+  background-color: var(--color-text);
+  color: var(--color-background);
+  padding: 2rem 0;
+  margin-top: 4rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.section {
+  flex: 1;
+}
+
+.copyright {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.developer {
+  color: var(--color-border);
+  margin-bottom: 0;
+}
+
+.contactTitle {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.contactInfo {
+  color: var(--color-border);
+  font-size: 0.95rem;
+  margin-bottom: 0.25rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .section {
+    text-align: center;
+  }
+}

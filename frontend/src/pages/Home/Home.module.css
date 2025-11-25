@@ -1,0 +1,141 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  flex: 1;
+}
+
+.hero {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-cta) 100%);
+  color: var(--color-white);
+  padding: 6rem 2rem;
+  text-align: center;
+}
+
+.heroContent {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.heroTitle {
+  color: var(--color-white);
+  margin-bottom: 1rem;
+}
+
+.heroSubtitle {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  opacity: 0.95;
+}
+
+.features {
+  padding: 4rem 2rem;
+  background-color: var(--color-white);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.featureIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.howItWorks {
+  padding: 4rem 2rem;
+}
+
+.sectionTitle {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.stepGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+}
+
+.step {
+  text-align: center;
+}
+
+.stepNumber {
+  width: 60px;
+  height: 60px;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 auto 1rem;
+}
+
+.faq {
+  padding: 4rem 2rem;
+  background-color: var(--color-white);
+}
+
+.faqList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.privacy {
+  padding: 4rem 2rem;
+}
+
+.privacyContent {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.privacyList {
+  list-style: none;
+  padding: 0;
+}
+
+.privacyList li {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.privacyList li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--color-cta);
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 4rem 1rem;
+  }
+
+  .heroTitle {
+    font-size: 2rem;
+  }
+
+  .stepGrid {
+    grid-template-columns: 1fr;
+  }
+}
