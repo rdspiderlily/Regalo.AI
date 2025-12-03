@@ -6,3 +6,4 @@ backend/__pycache__/
 *.pyc
 .env
 .DS_Store
+regalo-ai-gemini.json
