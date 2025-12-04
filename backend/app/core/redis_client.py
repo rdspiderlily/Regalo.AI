@@ -1,8 +1,7 @@
 # backend/app/core/redis_client.py
-import os
-import aioredis
+import redis.asyncio as redis
 
-REDIS_HOST = os.getenv("REDIS_HOST")
+REDIS_HOST = redis.getenv("REDIS_HOST")
 REDIS_PORT = int(os.getenv("REDIS_PORT", 6379))
 REDIS_PASSWORD = os.getenv("REDIS_PASSWORD")
 
