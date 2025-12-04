@@ -7,6 +7,7 @@ class GiftIdea(BaseModel):
     description: str
     reason: str
     budget: str
+    message: str | None = None
 
 class GiftResponse(BaseModel):
     ideas: List[GiftIdea]

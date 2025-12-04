@@ -4,12 +4,15 @@ import Footer from "../../components/Footer/Footer";
 import Card from "../../components/Card/Card";
 import styles from "./GiftIdea.module.css";
 import { useGift } from "../../hooks/useGift";
-import heroImage from '../../images/bg.png'; // Imported the image
+import heroImage from '../../images/bg.png';
 
 export default function GiftIdea() {
   const [showModal, setShowModal] = useState(false);
   const [modalLoading, setModalLoading] = useState(false);
-  const [formData, setFormData] = useState({ recipient: "", interests: "", budget: "" });
+  const [formData, setFormData] = useState({ 
+    recipient: "", interests: "", budget: "", 
+    occasion: "", personality: "", age_range: "", filters: "", message_style: ""
+  });
 
   const { ideas: giftIdeas, loading, error, generateGiftIdeas, setIdeas, setError } = useGift();
 
@@ -117,14 +120,14 @@ export default function GiftIdea() {
                 </div>
 
                 <div className={styles.formGroup}>
-                  <label htmlFor="ageRange" className={styles.label}>
+                  <label htmlFor="age_range" className={styles.label}>
                     Age Range
                   </label>
                   <select 
-                    id="ageRange" 
-                    name="ageRange" 
+                    id="age_range" 
+                    name="age_range" 
                     className={styles.select}
-                    value={formData.ageRange}
+                    value={formData.age_range}
                     onChange={handleInputChange}
                     required
                   >
@@ -155,14 +158,14 @@ export default function GiftIdea() {
                 </div>
 
                  <div className={styles.formGroup}>
-                  <label htmlFor="personalityStyle" className={styles.label}>
+                  <label htmlFor="personality" className={styles.label}>
                     Personality Style
                   </label>
                   <select 
-                    id="personalityStyle" 
-                    name="personalityStyle" 
+                    id="personality" 
+                    name="personality" 
                     className={styles.select}
-                    value={formData.personalityStyle}
+                    value={formData.personality}
                     onChange={handleInputChange}
                     required
                   >
@@ -180,14 +183,14 @@ export default function GiftIdea() {
                 </div>
 
                 <div className={styles.formGroup}>
-                  <label htmlFor="giftFilters" className={styles.label}>
+                  <label htmlFor="filters" className={styles.label}>
                     Gift Filters
                   </label>
                   <select 
-                    id="giftFilters" 
-                    name="giftFilters" 
+                    id="filters" 
+                    name="filters" 
                     className={styles.select}
-                    value={formData.giftFilters}
+                    value={formData.filters}
                     onChange={handleInputChange}
                     required
                   >
@@ -204,14 +207,14 @@ export default function GiftIdea() {
                 </div>
 
                 <div className={styles.formGroup}>
-                  <label htmlFor="messageStyle" className={styles.label}>
+                  <label htmlFor="message_style" className={styles.label}>
                     Sweet English & Tagalog Message
                   </label>
                   <select 
-                    id="messageStyle" 
-                    name="messageStyle" 
+                    id="message_style" 
+                    name="message_style" 
                     className={styles.select}
-                    value={formData.messageStyle}
+                    value={formData.message_style}
                     onChange={handleInputChange}
                     required
                   >
@@ -283,6 +286,9 @@ export default function GiftIdea() {
                         <div className={styles.giftDetails}>
                           <h3 className={styles.giftTitle}>{gift.title}</h3>
                           <p className={styles.giftDescription}>{gift.description}</p>
+                          {gift.message && (
+                            <p className={styles.giftMessage}><em>Message:</em> {gift.message}</p>
+                          )}
                           <div className={styles.giftMeta}>
                             <span><strong>Why:</strong> {gift.reason}</span>
                             <span><strong>Budget:</strong> {gift.budget}</span>
