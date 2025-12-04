@@ -23,7 +23,8 @@ export default function GiftIdea() {
       });
     }, { threshold: 0.1 });
 
-    const hiddenElements = document.querySelectorAll(`.${styles.fadeInUp}, .${styles.slideLeft}`);
+    // Observes elements with fadeInUp class
+    const hiddenElements = document.querySelectorAll(`.${styles.fadeInUp}`);
     hiddenElements.forEach((el) => observer.observe(el));
 
     return () => hiddenElements.forEach((el) => observer.unobserve(el));
@@ -72,8 +73,8 @@ export default function GiftIdea() {
           <h1 className={`${styles.pageTitle} ${styles.fadeInUp}`}>Generate Gift Ideas</h1>
 
           <section className={styles.formSection}>
-            {/* Added custom class for the Warm Cream background AND Slide Left animation */}
-            <Card className={`${styles.giftCard} ${styles.slideLeft}`}>
+            {/* CHANGED: Switched to fadeInUp to match the title */}
+            <Card className={`${styles.giftCard} ${styles.fadeInUp}`}>
               <form className={styles.form} onSubmit={handleSubmit}>
 
                   <div className={styles.formGroup}>

@@ -16,7 +16,8 @@ export default function About() {
       });
     }, { threshold: 0.15 });
 
-    const hiddenElements = document.querySelectorAll(`.${styles.fadeInUp}, .${styles.slideLeft}`);
+    // Observes elements with slideLeft class
+    const hiddenElements = document.querySelectorAll(`.${styles.slideLeft}`);
     hiddenElements.forEach((el) => observer.observe(el));
 
     return () => hiddenElements.forEach((el) => observer.unobserve(el));
@@ -29,8 +30,8 @@ export default function About() {
       {/* Added style prop for background image */}
       <main className={styles.main} style={{ backgroundImage: `url(${heroImage})` }}>
         <div className={styles.container}>
-          {/* Title Animate Fade Up */}
-          <h1 className={`${styles.pageTitle} ${styles.fadeInUp}`}>About Regalo.AI</h1>
+          {/* CHANGED: Title now animates Slide Left (Swipe from right) */}
+          <h1 className={`${styles.pageTitle} ${styles.slideLeft}`}>About Regalo.AI</h1>
 
           {/* Mission Section - Animate Slide Left */}
           <section className={`${styles.section} ${styles.slideLeft}`}>
