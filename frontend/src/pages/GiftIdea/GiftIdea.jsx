@@ -1,3 +1,4 @@
+// frontend/src/pages/GiftIdea/GiftIdea.jsx
 import { useState, useEffect } from "react";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";

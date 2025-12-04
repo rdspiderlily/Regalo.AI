@@ -1,7 +1,7 @@
 // frontend/src/services/giftAPI.js
 import axios from "axios";
 
-const API_URL = "http://localhost:8000/gift/";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export const generateGiftIdeas = async ({ recipient, interests, budget, occasion, personality, age_range, filters, message_style }) => {
   try {
