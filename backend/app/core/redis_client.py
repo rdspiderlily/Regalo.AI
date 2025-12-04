@@ -6,7 +6,10 @@ REDIS_HOST = os.getenv("REDIS_HOST", "localhost")
 REDIS_PORT = int(os.getenv("REDIS_PORT", 6379))
 REDIS_PASSWORD = os.getenv("REDIS_PASSWORD", "")
 
-redis_url = f"redis://:{REDIS_PASSWORD}@{REDIS_HOST}:{REDIS_PORT}" if REDIS_PASSWORD else f"redis://{REDIS_HOST}:{REDIS_PORT}"
+redis_url = (
+    f"rediss://:{REDIS_PASSWORD}@{REDIS_HOST}:{REDIS_PORT}"
+    if REDIS_PASSWORD else f"rediss://{REDIS_HOST}:{REDIS_PORT}"
+)
 
 redis_client = redis.from_url(
     redis_url,
