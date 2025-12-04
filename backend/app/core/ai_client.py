@@ -17,7 +17,6 @@ async def generate_gift_ideas(prompt: str):
         response.raise_for_status()
         data = response.json()
 
-    # --- FIXED PARSER ---
     try:
         candidates = data.get("candidates", [])
         if not candidates:
@@ -32,10 +31,9 @@ async def generate_gift_ideas(prompt: str):
         if ai_text.startswith("```json"):
             ai_text = ai_text.strip("```json").strip("```").strip()
 
-        # Parse JSON string safely
         try:
             gift_ideas = json.loads(ai_text)
-            return gift_ideas  # List of dicts
+            return gift_ideas  
         except json.JSONDecodeError:
             return []
 

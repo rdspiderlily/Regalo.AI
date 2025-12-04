@@ -12,18 +12,14 @@ async def get_gift_ideas(
     prompt = format_gift_prompt(recipient, interests, budget, occasion, personality, age_range, filters, message_style)
     raw_output = await generate_gift_ideas(prompt)
 
-    # Normalize raw_output to a JSON string
     if isinstance(raw_output, list):
-        # Check if list contains dicts
         if all(isinstance(i, dict) for i in raw_output):
             raw_output_str = json.dumps(raw_output)
         else:
-            # Assume list of strings
             raw_output_str = "\n".join(str(i) for i in raw_output)
     else:
         raw_output_str = str(raw_output)
 
-    # Remove triple backticks if present
     raw_output_str = raw_output_str.strip("`").replace("json", "").strip()
 
     ideas = []
@@ -42,7 +38,6 @@ async def get_gift_ideas(
             ))
 
     except (json.JSONDecodeError, TypeError, ValueError):
-        # fallback single idea
         ideas.append(GiftIdea(
             title="AI Suggestion",
             description=raw_output_str,
