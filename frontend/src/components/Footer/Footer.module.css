@@ -15,7 +15,12 @@
 }
 
 .section {
-  flex: 1;
+  /* Removed flex: 1 so the sections only take up the space they need */
+}
+
+/* This targets the second section (Contact Us) and aligns it to the right */
+.section:last-child {
+  text-align: right;
 }
 
 .copyright {
@@ -45,6 +50,11 @@
   }
 
   .section {
+    text-align: center;
+  }
+  
+  /* Reset text alignment for mobile so it stays centered */
+  .section:last-child {
     text-align: center;
   }
 }

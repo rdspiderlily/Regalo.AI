@@ -69,14 +69,12 @@ export default function GiftIdea() {
     <div className={styles.page}>
       <Header />
 
-      {/* Added style prop for background image */}
       <main className={styles.main} style={{ backgroundImage: `url(${heroImage})` }}>
         <div className={styles.container}>
           {/* Animate Title Fade Up */}
           <h1 className={`${styles.pageTitle} ${styles.fadeInUp}`}>Generate Gift Ideas</h1>
 
           <section className={styles.formSection}>
-            {/* CHANGED: Switched to fadeInUp to match the title */}
             <Card className={`${styles.giftCard} ${styles.fadeInUp}`}>
               <form className={styles.form} onSubmit={handleSubmit}>
 
@@ -266,6 +264,10 @@ export default function GiftIdea() {
       {showModal && (
         <div className={styles.modalOverlay} onClick={handleCloseModal}>
           <div className={styles.giftBoxModal} onClick={(e) => e.stopPropagation()}>
+            {/* --- ADDED BACK: RIBBONS FOR GIFT BOX EFFECT --- */}
+            <div className={styles.ribbon}></div>
+            <div className={styles.ribbonVertical}></div>
+            
             <button className={styles.closeButton} onClick={handleCloseModal}>×</button>
 
             <div className={styles.giftBoxContent}>
@@ -286,13 +288,13 @@ export default function GiftIdea() {
                         <div className={styles.giftDetails}>
                           <h3 className={styles.giftTitle}>{gift.title}</h3>
                           <p className={styles.giftDescription}>{gift.description}</p>
-                          {gift.message && (
-                            <p className={styles.giftMessage}><em>Message:</em> {gift.message}</p>
-                          )}
                           <div className={styles.giftMeta}>
-                            <span><strong>Why:</strong> {gift.reason}</span>
-                            <span><strong>Budget:</strong> {gift.budget}</span>
+                            <span className={styles.giftReason}><strong>Why:</strong> {gift.reason}</span>
+                            <span className={styles.giftBudget}><strong>Budget:</strong> {gift.budget}</span>
                           </div>
+                          {gift.message && (
+                            <p className={styles.giftMessage}>{gift.message}</p>
+                          )}
                         </div>
                       </div>
                     ))}

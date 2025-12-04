@@ -29,7 +29,6 @@
 
 /* --- Animations --- */
 
-/* 1. Fade In Up (For Title and Card) */
 .fadeInUp {
   opacity: 0;
   transform: translateY(30px);
@@ -55,7 +54,7 @@
 .pageTitle {
   text-align: center;
   margin-bottom: 2rem;
-  color: var(--color-white); /* Changed to white for better contrast against bg */
+  color: var(--color-white);
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
@@ -66,7 +65,7 @@
 /* Warm Cream Card Style */
 .giftCard {
   background-color: #FDFBD4 !important; /* Warm Cream */
-  color: #654321; /* Deep Brown text for better contrast */
+  color: #654321; /* Deep Brown text */
 }
 
 /* Form Styles */
@@ -83,7 +82,7 @@
   display: block;
   margin-bottom: 0.5rem;
   font-weight: 600;
-  color: #654321; /* Ensuring labels are Deep Brown */
+  color: #654321;
 }
 
 .input,
@@ -93,7 +92,7 @@
   padding: 0.875rem;
   border: 2px solid var(--color-border);
   border-radius: 8px;
-  background-color: var(--color-white); /* Keep inputs white to pop against cream card */
+  background-color: var(--color-white);
   color: var(--color-text);
   transition: border-color 0.3s ease;
 }
@@ -174,7 +173,7 @@
 }
 
 .loadingText {
-  color: var(--color-white); /* Changed to white for better visibility against overlay */
+  color: var(--color-white);
   font-size: 1.1rem;
   font-weight: 600;
   text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
@@ -288,11 +287,29 @@
   max-height: 85vh;
 }
 
+/* --- UPDATED: SLIMMER TITLE BOX --- */
 .modalTitle {
   text-align: center;
   margin-bottom: 1.5rem;
-  color: var(--color-primary);
   font-size: 1.75rem;
+  
+  /* Box Styles */
+  background-color: #FDFBD4; /* Warm Cream Background */
+  
+  /* 👇 CHANGED THIS TO DEEP BROWN 👇 */
+  color: #654321; 
+  
+  /* REDUCED PADDING to crop height */
+  padding: 0.5rem 2rem; 
+  
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  
+  display: block; 
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.3; /* Keeps text vertically centered */
 }
 
 /* Gift List */
@@ -366,6 +383,19 @@
   color: var(--color-cta);
 }
 
+.giftMessage {
+  margin-top: 0.75rem;
+  padding: 0.75rem;
+  background-color: var(--color-white);
+  border-radius: 8px;
+  color: var(--color-primary);
+  font-style: italic;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  border-left: 3px solid var(--color-primary);
+  margin-bottom: 0;
+}
+
 /* Generate Again Button */
 .generateAgainButton {
   width: 100%;
@@ -415,6 +445,8 @@
 
   .modalTitle {
     font-size: 1.5rem;
+    padding: 0.5rem 1.5rem;
+    width: 100%;
   }
 
   .giftItem {
