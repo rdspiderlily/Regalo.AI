@@ -8,7 +8,7 @@ app = FastAPI(title="Regalo.AI", version="1.0")
 
 
 
-allowed_origins = os.getenv("ALLOWED_ORIGINS", "http://localhost:5173").split(",")
+allowed_origins = os.getenv("ALLOWED_ORIGINS")
 
 app.add_middleware(
     CORSMiddleware,

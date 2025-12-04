@@ -1,6 +1,6 @@
 // frontend/src/hooks/useGift.js
 import { useState } from "react";
-import { generateGiftIdeas as fetchIdeas } from "../services/giftApi";
+import { generateGiftIdeas as fetchIdeas } from "../services/giftAPI";
 
 export function useGift() {
   const [ideas, setIdeas] = useState([]);
