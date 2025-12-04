@@ -1,13 +1,14 @@
 # backend/app/core/redis_client.py
+import os
 import redis.asyncio as redis
 
-REDIS_HOST = redis.getenv("REDIS_HOST")
+REDIS_HOST = os.getenv("REDIS_HOST", "localhost")
 REDIS_PORT = int(os.getenv("REDIS_PORT", 6379))
-REDIS_PASSWORD = os.getenv("REDIS_PASSWORD")
+REDIS_PASSWORD = os.getenv("REDIS_PASSWORD", "")
 
-redis_url = f"redis://:{REDIS_PASSWORD}@{REDIS_HOST}:{REDIS_PORT}"
+redis_url = f"redis://:{REDIS_PASSWORD}@{REDIS_HOST}:{REDIS_PORT}" if REDIS_PASSWORD else f"redis://{REDIS_HOST}:{REDIS_PORT}"
 
-redis = aioredis.from_url(
+redis_client = redis.from_url(
     redis_url,
     decode_responses=True
 )
