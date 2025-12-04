@@ -9,26 +9,47 @@
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 1rem 2rem;
+  /* Reduced padding to make header slimmer */
+  padding: 0.5rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .logo {
-  font-size: 1.75rem;
+  /* Reduced font size to match slimmer header */
+  font-size: 1.4rem;
   font-weight: 700;
   color: var(--color-primary);
   text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  letter-spacing: -0.01em;
+  transition: color 0.3s ease;
 }
 
 .logo:hover {
   color: var(--color-cta);
 }
 
+.logoImage {
+  /* Reduced image size from 48px to 32px */
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.logoText {
+  /* Reduced font size to match slimmer header */
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
 .nav {
   display: flex;
-  gap: 2rem;
+  gap: 2.5rem;
   align-items: center;
 }
 
@@ -36,8 +57,10 @@
   color: var(--color-text);
   text-decoration: none;
   font-weight: 500;
+  font-size: 1rem; /* Slightly smaller to fit the bar better */
   transition: color 0.3s ease;
   position: relative;
+  letter-spacing: 0.01em;
 }
 
 .navLink:hover {
@@ -62,10 +85,15 @@
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.75rem;
+    padding: 0.75rem 1.5rem; /* Adjusted mobile padding as well */
   }
 
   .nav {
-    gap: 1rem;
+    gap: 1.5rem;
+  }
+
+  .navLink {
+    font-size: 0.95rem;
   }
 }

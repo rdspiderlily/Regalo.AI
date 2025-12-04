@@ -1,19 +1,39 @@
+import { useEffect } from 'react';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import Card from '../../components/Card/Card';
+import heroImage from '../../images/bg.png'; // Imported the image
 import styles from './About.module.css';
 
 export default function About() {
+  // Add scroll animation logic
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add(styles.show);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    const hiddenElements = document.querySelectorAll(`.${styles.fadeInUp}, .${styles.slideLeft}`);
+    hiddenElements.forEach((el) => observer.observe(el));
+
+    return () => hiddenElements.forEach((el) => observer.unobserve(el));
+  }, []);
+
   return (
     <div className={styles.page}>
       <Header />
 
-      <main className={styles.main}>
+      {/* Added style prop for background image */}
+      <main className={styles.main} style={{ backgroundImage: `url(${heroImage})` }}>
         <div className={styles.container}>
-          <h1 className={styles.pageTitle}>About Regalo.AI</h1>
+          {/* Title Animate Fade Up */}
+          <h1 className={`${styles.pageTitle} ${styles.fadeInUp}`}>About Regalo.AI</h1>
 
-          {/* Mission Section */}
-          <section className={styles.section}>
+          {/* Mission Section - Animate Slide Left */}
+          <section className={`${styles.section} ${styles.slideLeft}`}>
             <Card>
               <h2>Our Mission</h2>
               <p className={styles.missionText}>
@@ -22,8 +42,8 @@ export default function About() {
             </Card>
           </section>
 
-          {/* Project Overview */}
-          <section className={styles.section}>
+          {/* Project Overview - Animate Slide Left */}
+          <section className={`${styles.section} ${styles.slideLeft}`}>
             <Card>
               <h2>Project Overview</h2>
               <p>
@@ -45,8 +65,8 @@ export default function About() {
             </Card>
           </section>
 
-          {/* Developers Section */}
-          <section className={styles.section}>
+          {/* Developers Section - Animate Slide Left */}
+          <section className={`${styles.section} ${styles.slideLeft}`}>
             <Card>
               <h2>The Developers</h2>
               <p>

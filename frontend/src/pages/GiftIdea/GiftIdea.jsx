@@ -1,219 +1,10 @@
-// // frontend/src/pages/GiftIdea/GiftIdea.jsx
-// import { useState } from 'react';
-// import Header from '../../components/Header/Header';
-// import Footer from '../../components/Footer/Footer';
-// import Card from '../../components/Card/Card';
-// import styles from './GiftIdea.module.css';
-// import { useGift } from "../../hooks/useGift";
-
-// export default function GiftIdea() {
-//   const [showModal, setShowModal] = useState(false);
-//   const [loading, setLoading] = useState(false);
-//   const [modalLoading, setModalLoading] = useState(false);
-//   const [formData, setFormData] = useState({
-//     recipient: '',
-//     interests: '',
-//     budget: ''
-//   });
-//   const [giftIdeas, setGiftIdeas] = useState([]);
-//   const [error, setError] = useState(null);
-
-//   const handleInputChange = (e) => {
-//     const { name, value } = e.target;
-//     setFormData(prev => ({
-//       ...prev,
-//       [name]: value
-//     }));
-//   };
-
-//   // Submit form to backend
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     setLoading(true);
-//     setError(null);
-
-//     try {
-//       const ideas = await generateGiftIdeas(formData);
-//       setGiftIdeas(ideas);
-//       setShowModal(true);
-//     } catch (err) {
-//       console.error("Error fetching gift ideas:", err);
-//       setError("Failed to generate gift ideas. Please try again.");
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   // Generate again button in modal
-//   const handleGenerateAgain = async () => {
-//     setModalLoading(true);
-//     setError(null);
-
-//     try {
-//       const newIdeas = await generateGiftIdeas(formData);
-//       setGiftIdeas(newIdeas);
-//     } catch (err) {
-//       console.error("Error generating again:", err);
-//       setError("Failed to generate new ideas. Please try again.");
-//     } finally {
-//       setModalLoading(false);
-//     }
-//   };
-
-//   const handleCloseModal = () => {
-//     setShowModal(false);
-//   };
-
-//   return (
-//     <div className={styles.page}>
-//       <Header />
-
-//       <main className={styles.main}>
-//         <div className={styles.container}>
-//           <h1 className={styles.pageTitle}>Generate Gift Ideas</h1>
-
-//           <section className={styles.formSection}>
-//             <Card>
-//               <form className={styles.form} onSubmit={handleSubmit}>
-//                 <div className={styles.formGroup}>
-//                   <label htmlFor="recipient" className={styles.label}>
-//                     Recipient Name / Relationship
-//                   </label>
-//                   <input
-//                     type="text"
-//                     id="recipient"
-//                     name="recipient"
-//                     placeholder="e.g., Mom, best friend, boyfriend, coworker"
-//                     className={styles.input}
-//                     value={formData.recipient}
-//                     onChange={handleInputChange}
-//                     required
-//                   />
-//                 </div>
-
-//                 <div className={styles.formGroup}>
-//                   <label htmlFor="interests" className={styles.label}>
-//                     Recipient Interests
-//                   </label>
-//                   <textarea
-//                     id="interests"
-//                     name="interests"
-//                     placeholder="e.g., cooking, reading, gaming, travel, music"
-//                     rows={4}
-//                     className={styles.textarea}
-//                     value={formData.interests}
-//                     onChange={handleInputChange}
-//                     required
-//                   />
-//                 </div>
-
-//                 <div className={styles.formGroup}>
-//                   <label htmlFor="budget" className={styles.label}>
-//                     Budget Range
-//                   </label>
-//                   <select 
-//                     id="budget" 
-//                     name="budget" 
-//                     className={styles.select}
-//                     value={formData.budget}
-//                     onChange={handleInputChange}
-//                     required
-//                   >
-//                     <option value="">Select your budget</option>
-//                     <option value="100-500">₱100 - ₱500</option>
-//                     <option value="500-1000">₱500 - ₱1,000</option>
-//                     <option value="1000-3000">₱1,000 - ₱3,000</option>
-//                     <option value="3000-5000">₱3,000 - ₱5,000</option>
-//                     <option value="5000+">₱5,000+</option>
-//                   </select>
-//                 </div>
-
-//                 <button type="submit" className={styles.submitButton} disabled={loading}>
-//                   {loading ? 'Generating...' : 'Generate Ideas'}
-//                 </button>
-//               </form>
-
-//               {error && <p className={styles.errorText}>{error}</p>}
-//             </Card>
-//           </section>
-
-//           {/* Loading State */}
-//           {loading && (
-//             <section className={styles.loading}>
-//               <div className={styles.spinner}></div>
-//               <p className={styles.loadingText}>Thinking of the best gifts…</p>
-//             </section>
-//           )}
-//         </div>
-//       </main>
-
-//       {/* Gift Box Modal */}
-//       {showModal && (
-//         <div className={styles.modalOverlay} onClick={handleCloseModal}>
-//           <div className={styles.giftBoxModal} onClick={(e) => e.stopPropagation()}>
-//             {/* Gift Box Ribbon */}
-//             <div className={styles.ribbon}></div>
-//             <div className={styles.ribbonVertical}></div>
-
-//             {/* Close Button */}
-//             <button className={styles.closeButton} onClick={handleCloseModal}>
-//               ×
-//             </button>
-
-//             {/* Gift Box Content */}
-//             <div className={styles.giftBoxContent}>
-//               <h2 className={styles.modalTitle}>🎁 Here are your gift ideas!</h2>
-
-//               {modalLoading ? (
-//                 <div className={styles.modalLoadingContainer}>
-//                   <div className={styles.spinner}></div>
-//                   <p className={styles.loadingText}>Thinking of the best gifts…</p>
-//                 </div>
-//               ) : (
-//                 <>
-//                   {error && <p className={styles.errorText}>{error}</p>}
-                  
-//                   <div className={styles.giftList}>
-//                     {giftIdeas.map((gift, index) => (
-//                       <div key={gift.id} className={styles.giftItem}>
-//                         <div className={styles.giftNumber}>{index + 1}</div>
-//                         <div className={styles.giftDetails}>
-//                           <h3 className={styles.giftTitle}>{gift.title}</h3>
-//                           <p className={styles.giftDescription}>{gift.description}</p>
-//                           <div className={styles.giftMeta}>
-//                             <span className={styles.giftReason}>
-//                               <strong>Why:</strong> {gift.reason}
-//                             </span>
-//                             <span className={styles.giftBudget}>
-//                               <strong>Budget:</strong> {gift.budget}
-//                             </span>
-//                           </div>
-//                         </div>
-//                       </div>
-//                     ))}
-//                   </div>
-
-//                   <button className={styles.generateAgainButton} onClick={handleGenerateAgain}>
-//                     🎲 Generate Again
-//                   </button>
-//                 </>
-//               )}
-//             </div>
-//           </div>
-//         </div>
-//       )}
-
-//       <Footer />
-//     </div>
-//   );
-// }
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import Card from "../../components/Card/Card";
 import styles from "./GiftIdea.module.css";
 import { useGift } from "../../hooks/useGift";
+import heroImage from '../../images/bg.png'; // Imported the image
 
 export default function GiftIdea() {
   const [showModal, setShowModal] = useState(false);
@@ -221,6 +12,22 @@ export default function GiftIdea() {
   const [formData, setFormData] = useState({ recipient: "", interests: "", budget: "" });
 
   const { ideas: giftIdeas, loading, error, generateGiftIdeas, setIdeas, setError } = useGift();
+
+  // Add scroll animation logic
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add(styles.show);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    const hiddenElements = document.querySelectorAll(`.${styles.fadeInUp}, .${styles.slideLeft}`);
+    hiddenElements.forEach((el) => observer.observe(el));
+
+    return () => hiddenElements.forEach((el) => observer.unobserve(el));
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -258,13 +65,42 @@ export default function GiftIdea() {
     <div className={styles.page}>
       <Header />
 
-      <main className={styles.main}>
+      {/* Added style prop for background image */}
+      <main className={styles.main} style={{ backgroundImage: `url(${heroImage})` }}>
         <div className={styles.container}>
-          <h1 className={styles.pageTitle}>Generate Gift Ideas</h1>
+          {/* Animate Title Fade Up */}
+          <h1 className={`${styles.pageTitle} ${styles.fadeInUp}`}>Generate Gift Ideas</h1>
 
           <section className={styles.formSection}>
-            <Card>
+            {/* Added custom class for the Warm Cream background AND Slide Left animation */}
+            <Card className={`${styles.giftCard} ${styles.slideLeft}`}>
               <form className={styles.form} onSubmit={handleSubmit}>
+
+                  <div className={styles.formGroup}>
+                  <label htmlFor="occasion" className={styles.label}>
+                    Occasion Selector
+                  </label>
+                  <select 
+                    id="occasion" 
+                    name="occasion" 
+                    className={styles.select}
+                    value={formData.occasion}
+                    onChange={handleInputChange}
+                    required
+                  >
+                    <option value="">Select occasion</option>
+                    <option value="birthday">Birthday</option>
+                    <option value="anniversary">Anniversary</option>
+                    <option value="graduation">Graduation</option>
+                    <option value="christmas">Christmas</option>
+                    <option value="valentines">Valentine's Day</option>
+                    <option value="mothersday">Mother's Day / Father's Day</option>
+                    <option value="wedding">Wedding / Engagement</option>
+                    <option value="babyshower">Baby Shower</option>
+                    <option value="randomsurprise">Random Surprise</option>
+                  </select>
+                </div>
+
                 <div className={styles.formGroup}>
                   <label htmlFor="recipient" className={styles.label}>Recipient Name / Relationship</label>
                   <input
@@ -280,6 +116,30 @@ export default function GiftIdea() {
                 </div>
 
                 <div className={styles.formGroup}>
+                  <label htmlFor="ageRange" className={styles.label}>
+                    Age Range
+                  </label>
+                  <select 
+                    id="ageRange" 
+                    name="ageRange" 
+                    className={styles.select}
+                    value={formData.ageRange}
+                    onChange={handleInputChange}
+                    required
+                  >
+                    <option value="">Select age range</option>
+                    <option value="0-10">0–10</option>
+                    <option value="11-15">11–15</option>
+                    <option value="16-20">16–20</option>
+                    <option value="21-30">21–30</option>
+                    <option value="31-40">31–40</option>
+                    <option value="41-50">41–50</option>
+                    <option value="51-60">51–60</option>
+                    <option value="61+">61+</option>
+                  </select>
+                </div>
+
+                <div className={styles.formGroup}>
                   <label htmlFor="interests" className={styles.label}>Recipient Interests</label>
                   <textarea
                     id="interests"
@@ -291,6 +151,76 @@ export default function GiftIdea() {
                     className={styles.textarea}
                     required
                   />
+                </div>
+
+                 <div className={styles.formGroup}>
+                  <label htmlFor="personalityStyle" className={styles.label}>
+                    Personality Style
+                  </label>
+                  <select 
+                    id="personalityStyle" 
+                    name="personalityStyle" 
+                    className={styles.select}
+                    value={formData.personalityStyle}
+                    onChange={handleInputChange}
+                    required
+                  >
+                    <option value="">Select personality style</option>
+                    <option value="practical">Practical</option>
+                    <option value="sentimental">Sentimental</option>
+                    <option value="creative">Creative</option>
+                    <option value="techy">Techy</option>
+                    <option value="fashionable">Fashionable</option>
+                    <option value="foodlover">Food Lover</option>
+                    <option value="adventurous">Adventurous</option>
+                    <option value="minimalist">Minimalist</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label htmlFor="giftFilters" className={styles.label}>
+                    Gift Filters
+                  </label>
+                  <select 
+                    id="giftFilters" 
+                    name="giftFilters" 
+                    className={styles.select}
+                    value={formData.giftFilters}
+                    onChange={handleInputChange}
+                    required
+                  >
+                    <option value="">Select gift filter</option>
+                    <option value="diy">DIY / Handmade</option>
+                    <option value="personalized">Personalized Gifts</option>
+                    <option value="ecofriendly">Eco-Friendly</option>
+                    <option value="experience">Experience-Based Gifts</option>
+                    <option value="budgetsaver">Budget Saver Options</option>
+                    <option value="cute">Cute / Aesthetic</option>
+                    <option value="homeessentials">Home Essentials</option>
+                    <option value="foodsnacks">Food & Snacks</option>
+                  </select>
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label htmlFor="messageStyle" className={styles.label}>
+                    Sweet English & Tagalog Message
+                  </label>
+                  <select 
+                    id="messageStyle" 
+                    name="messageStyle" 
+                    className={styles.select}
+                    value={formData.messageStyle}
+                    onChange={handleInputChange}
+                    required
+                  >
+                    <option value="">Select message style</option>
+                    <option value="sweetenglish">Sweet (English)</option>
+                    <option value="sweettagalog">Sweet (Tagalog)</option>
+                    <option value="funny">Funny / Lighthearted</option>
+                    <option value="shortsimple">Short & Simple</option>
+                    <option value="heartfelt">Heartfelt / Emotional</option>
+                  </select>
                 </div>
 
                 <div className={styles.formGroup}>

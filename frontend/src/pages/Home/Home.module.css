@@ -8,27 +8,92 @@
   flex: 1;
 }
 
+/* --- Animations --- */
+
+/* 1. Fade In Up (For Hero) */
+.fadeInUp {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  will-change: opacity, transform;
+}
+
+.fadeInUp.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 2. Slide Left (For Cards) - Wipe effect from Right */
+.slideLeft {
+  opacity: 0;
+  transform: translateX(50px); /* Start 50px to the right */
+  transition: opacity 0.7s ease-out, transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: opacity, transform;
+}
+
+.slideLeft.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* 3. Pop In (For How It Works) - Scale effect */
+.popIn {
+  opacity: 0;
+  transform: scale(0.8); /* Start smaller */
+  transition: opacity 0.6s ease-out, transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy effect */
+  will-change: opacity, transform;
+}
+
+.popIn.show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* --- End Animations --- */
+
 .hero {
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-cta) 100%);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   color: var(--color-white);
   padding: 6rem 2rem;
   text-align: center;
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(101, 67, 33, 0.5);
+  z-index: 1;
 }
 
 .heroContent {
   max-width: 800px;
   margin: 0 auto;
+  position: relative;
+  z-index: 2;
 }
 
 .heroTitle {
   color: var(--color-white);
   margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
 .heroSubtitle {
   font-size: 1.25rem;
   margin-bottom: 2rem;
   opacity: 0.95;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
 }
 
 .features {
@@ -43,7 +108,7 @@
 
 .featureGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
 }
 
@@ -54,11 +119,16 @@
 
 .howItWorks {
   padding: 4rem 2rem;
+  background-color: #BF5B53; /* Earthy Red */
 }
 
 .sectionTitle {
   text-align: center;
   margin-bottom: 3rem;
+}
+
+.howItWorks .sectionTitle {
+  color: #FDFBD4; /* Warm Cream */
 }
 
 .stepGrid {
@@ -71,11 +141,16 @@
   text-align: center;
 }
 
+.step h3,
+.step p {
+  color: white;
+}
+
 .stepNumber {
   width: 60px;
   height: 60px;
-  background-color: var(--color-primary);
-  color: var(--color-white);
+  background-color: #FDFBD4; /* Warm Cream */
+  color: #654321; /* Deep Brown */
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -88,6 +163,7 @@
 .faq {
   padding: 4rem 2rem;
   background-color: var(--color-white);
+  flex: 1;
 }
 
 .faqList {
@@ -100,30 +176,41 @@
 
 .privacy {
   padding: 4rem 2rem;
+  flex: 1;
 }
 
 .privacyContent {
   max-width: 800px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
-.privacyList {
-  list-style: none;
-  padding: 0;
+.privacyItem {
+  margin-bottom: 1.5rem;
 }
 
-.privacyList li {
-  margin-bottom: 1rem;
-  padding-left: 1.5rem;
-  position: relative;
+.privacyItem:last-child {
+  margin-bottom: 0;
 }
 
-.privacyList li::before {
-  content: '✓';
-  position: absolute;
-  left: 0;
-  color: var(--color-cta);
-  font-weight: 700;
+.privacyItem h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 0.5rem;
+}
+
+.privacyItem p {
+  margin-bottom: 0;
+}
+
+.faqPrivacyWrapper {
+  display: flex;
+  gap: 2rem;
+  background-color: var(--color-white);
+  padding-bottom: 4rem;
 }
 
 @media (max-width: 768px) {
@@ -135,7 +222,15 @@
     font-size: 2rem;
   }
 
+  .featureGrid {
+    grid-template-columns: 1fr;
+  }
+
   .stepGrid {
     grid-template-columns: 1fr;
+  }
+
+  .faqPrivacyWrapper {
+    flex-direction: column;
   }
 }
