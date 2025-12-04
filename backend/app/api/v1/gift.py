@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends
 from app.schemas.user_input_schema import GiftRequest
 from app.schemas.gift_schema import GiftResponse
 from app.services.gift_service import get_gift_ideas
-from dependencies import rate_limiter
+from app.api.dependencies import rate_limiter
 
 router = APIRouter(prefix="/gift", tags=["Gift Ideas"])
 
