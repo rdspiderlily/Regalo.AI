@@ -25,7 +25,8 @@ def s_format_gift_prompt(
 ) -> str: 
     return (
         f"Generate random 3 creative, Filipino-friendly gift ideas for the category: {gift_category}.  "
-        f"Budget: {budget_range}. "
+        f"The budget for each gift must strictly be within: {budget_range} Philippine Pesos. "
+        f"Do not exceed the maximum amount in the budget range, and do not leave the budget field empty. "
         f"Write the title and dedication message ('message' field) in Tagalog, "
         f"and write the description, items (as a list), reason, and budget in English. "
         f"Include a short dedication message for the gift in the 'message' field, relevant to the category."
