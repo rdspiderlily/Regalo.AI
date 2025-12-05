@@ -12,3 +12,6 @@ class GiftRequest(BaseModel):
     filters: str          
     message_style: str
 
+class SGiftRequest(BaseModel):
+    budget_range: str
+    gift_category: str

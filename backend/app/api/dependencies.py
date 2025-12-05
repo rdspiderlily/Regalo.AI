@@ -1,6 +1,6 @@
 # backend/app/api/dependencies.py
 from fastapi import HTTPException, Request
-from app.core.redis_client import redis_client  # <-- use the client instance
+from app.core.redis_client import redis_client
 
 # Per-user limits
 REQUESTS_PER_MINUTE_PER_IP = 3

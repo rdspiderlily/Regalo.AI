@@ -5,7 +5,6 @@ import Footer from "../../components/Footer/Footer";
 import Card from "../../components/Card/Card";
 import styles from "./GiftIdea.module.css";
 import { useGift } from "../../hooks/useGift";
-// Using original image path instead of Figma asset
 import heroImage from '../../images/bg.png';
 
 export default function GiftIdea() {
@@ -14,12 +13,13 @@ export default function GiftIdea() {
   const [selectedGiftType, setSelectedGiftType] = useState(null); 
 
   const [formData, setFormData] = useState({ 
+    // Heartfelt fields
     recipient: "", interests: "", budget: "", 
     occasion: "", personality: "", age_range: "", filters: "", message_style: "",
-    gift_category: ""
+    // Surprise field
+    budget_range: "", gift_category: ""
   });
 
-  // Ensure your useGift hook returns 'suggestedItems' in the payload now!
   const { ideas: giftIdeas, loading, error, generateGiftIdeas, setIdeas, setError } = useGift();
 
   // Add scroll animation logic
@@ -73,9 +73,11 @@ export default function GiftIdea() {
   const handleCardClick = (type) => {
     setSelectedGiftType(type);
     setFormData({
+      // Heartfelt fields
       recipient: "", interests: "", budget: "", 
       occasion: "", personality: "", age_range: "", filters: "", message_style: "",
-      gift_category: ""
+      // Surprise field
+      budget_range: "", gift_category: ""
     });
   };
 
@@ -133,19 +135,19 @@ export default function GiftIdea() {
 
                  <form className={styles.form} onSubmit={handleSubmit}>
                    <div className={styles.formGroup}>
-                     <label htmlFor="budget" className={styles.label}>
+                     <label htmlFor="budget_range" className={styles.label}>
                        Budget Range
                      </label>
                      <select
-                       id="budget"
-                       name="budget"
-                       value={formData.budget}
+                       id="budget_range"
+                       name="budget_range"
+                       value={formData.budget_range}
                        onChange={handleInputChange}
                        className={styles.select}
                        required
                      >
                        <option value="">Select your budget</option>
-                       <option value="under100">Under ₱100</option>
+                       <option value="below100">Below ₱100</option>
                        <option value="100-250">₱100–₱250</option>
                        <option value="250-500">₱250–₱500</option>
                        <option value="1000+">₱1,000+</option>
@@ -163,7 +165,7 @@ export default function GiftIdea() {
                        name="gift_category"
                        value={formData.gift_category}
                        onChange={handleInputChange}
-                       placeholder='e.g., "something practical", "something funny"'
+                       placeholder='e.g., "something practical", "something funny", "useful", "aesthetic", etc.'
                        className={styles.input}
                        required
                      />
@@ -229,7 +231,7 @@ export default function GiftIdea() {
                       name="recipient"
                       value={formData.recipient}
                       onChange={handleInputChange}
-                      placeholder='Input Name or Relationship e.g. "Mom"'
+                      placeholder='Input Name or Relationship e.g. "Mom", "Best Friend", "Jungkook", etc.'
                       className={styles.input}
                       required
                     />
@@ -292,6 +294,7 @@ export default function GiftIdea() {
                       <option value="techy">Techy</option>
                       <option value="fashionable">Fashionable</option>
                       <option value="foodlover">Food Lover</option>
+                      <option value="funny">Funny</option>
                       <option value="adventurous">Adventurous</option>
                       <option value="minimalist">Minimalist</option>
                     </select>
@@ -353,6 +356,7 @@ export default function GiftIdea() {
                       required
                     >
                       <option value="">Select your budget</option>
+                      <option value="below100">Below ₱100</option>
                       <option value="100-500">₱100 - ₱500</option>
                       <option value="500-1000">₱500 - ₱1,000</option>
                       <option value="1000-3000">₱1,000 - ₱3,000</option>
@@ -407,13 +411,13 @@ export default function GiftIdea() {
                           <p className={styles.giftDescription}>{gift.description}</p>
                           
                           {/* --- NEW UPDATE / CHANGES FROM FIGMA: SUGGESTED ITEMS --- */}
-                          {gift.suggestedItems && gift.suggestedItems.length > 0 && (
+                          {gift.items && gift.items.length > 0 && (
                             <div className={styles.suggestedItems}>
                               <h4 className={styles.suggestedItemsTitle}>
                                 🛒 Suggested Items to Buy:
                               </h4>
                               <ul className={styles.suggestedItemsList}>
-                                {gift.suggestedItems.map((item, idx) => (
+                                {gift.items.map((item, idx) => (
                                   <li key={idx} className={styles.suggestedItem}>
                                     {item}
                                   </li>
