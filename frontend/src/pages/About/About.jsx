@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import Card from '../../components/Card/Card';
-import heroImage from '../../images/bg.png'; // Imported the image
+import heroImage from '../../images/bg.png';
 import styles from './About.module.css';
 
 export default function About() {
@@ -27,57 +27,58 @@ export default function About() {
     <div className={styles.page}>
       <Header />
 
-      {/* Added style prop for background image */}
       <main className={styles.main} style={{ backgroundImage: `url(${heroImage})` }}>
         <div className={styles.container}>
-          {/* CHANGED: Title now animates Slide Left (Swipe from right) */}
+          {/* Title animates Slide Left */}
           <h1 className={`${styles.pageTitle} ${styles.slideLeft}`}>About Regalo.AI</h1>
 
-          {/* Mission Section - Animate Slide Left */}
+          {/* Mission Section */}
           <section className={`${styles.section} ${styles.slideLeft}`}>
-            <Card>
+            <Card className={styles.aboutCard}>
               <h2>Our Mission</h2>
               <p className={styles.missionText}>
-                Regalo.AI helps Filipinos find thoughtful and personalized gift ideas using AI.
+                To help Filipinos find the perfect gift for any occasion—from quick surprises to heartfelt gestures—using smart AI technology.
               </p>
             </Card>
           </section>
 
-          {/* Project Overview - Animate Slide Left */}
+          {/* Project Overview Section */}
           <section className={`${styles.section} ${styles.slideLeft}`}>
-            <Card>
+            <Card className={styles.aboutCard}>
               <h2>Project Overview</h2>
               <p>
                 Regalo.AI is a smart, AI-powered web application created to make gift-giving easier, 
-                faster, and more meaningful for every Filipino. By simply entering the recipient's 
-                details, interests, and budget, users receive unique and thoughtful gift suggestions 
-                tailored specifically to their situation.
+                faster, and more meaningful for every Filipino. Powered by Gemini 2.5 Flash, the platform removes the 
+                stress of choosing a present by offering two distinct ways to generate ideas:
               </p>
+              
+              <ol className={styles.overviewList}>
+                <li>
+                  <strong>Exciting Surprise:</strong> A quick and fun mode where users simply set a budget and a category 
+                  (e.g., "something practical" or "something aesthetic") for instant suggestions.
+                </li>
+                <li>
+                  <strong>Heartfelt Gift:</strong> A deeply personalized mode that tailors recommendations based on specific 
+                  details, including the occasion, recipient’s personality, interests, age, and preferred message 
+                  style (English, Tagalog, or Funny).
+                </li>
+              </ol>
+
               <p>
-                Powered by the OpenAI GPT API, the system generates creative, relevant, and 
-                budget-friendly ideas that remove the stress and uncertainty of choosing the perfect 
-                present. Instead of wasting time browsing stores or guessing what someone might like, 
-                Regalo.AI provides instant, personalized recommendations with just one click.
-              </p>
-              <p>
-                With its simple interface and intelligent guidance, the platform transforms gift-giving 
+                Instead of browsing aimlessly, users receive instant, curated gift ideas complete with 
+                descriptions, budget ranges, reasoning ("Why this gift?"), and AI-generated messages. 
+                With its intuitive interface and intelligent guidance, Regalo.AI transforms gift-giving 
                 into a smoother, more confident, and more enjoyable experience.
               </p>
             </Card>
           </section>
 
-          {/* Developers Section - Animate Slide Left */}
+          {/* Developers Section */}
           <section className={`${styles.section} ${styles.slideLeft}`}>
-            <Card>
+            <Card className={styles.aboutCard}>
               <h2>The Developers</h2>
               <p>
-                Regalo.AI was developed by <strong>SnowCrow</strong>, a dedicated duo team of 
-                3rd-year BSIT students from Cebu Technological University – Main Campus.
-              </p>
-              <p>
-                We designed Regalo.AI to provide smart, user-friendly, and personalized gift 
-                recommendations. Through this project, we aim to deliver a practical tool that makes 
-                gift-giving faster, simpler, and more enjoyable for everyone.
+                Regalo.AI was developed by <strong>SnowCrow</strong>, a dedicated duo team of 3rd-year BSIT students from Cebu Technological University – Main Campus. We designed Regalo.AI to provide smart, user-friendly, and personalized gift recommendations. Through this project, we aim to deliver a practical tool that makes gift-giving faster, simpler, and more enjoyable for everyone.
               </p>
             </Card>
           </section>

@@ -5,16 +5,21 @@ import Footer from "../../components/Footer/Footer";
 import Card from "../../components/Card/Card";
 import styles from "./GiftIdea.module.css";
 import { useGift } from "../../hooks/useGift";
+// Using original image path instead of Figma asset
 import heroImage from '../../images/bg.png';
 
 export default function GiftIdea() {
   const [showModal, setShowModal] = useState(false);
   const [modalLoading, setModalLoading] = useState(false);
+  const [selectedGiftType, setSelectedGiftType] = useState(null); 
+
   const [formData, setFormData] = useState({ 
     recipient: "", interests: "", budget: "", 
-    occasion: "", personality: "", age_range: "", filters: "", message_style: ""
+    occasion: "", personality: "", age_range: "", filters: "", message_style: "",
+    gift_category: ""
   });
 
+  // Ensure your useGift hook returns 'suggestedItems' in the payload now!
   const { ideas: giftIdeas, loading, error, generateGiftIdeas, setIdeas, setError } = useGift();
 
   // Add scroll animation logic
@@ -27,12 +32,11 @@ export default function GiftIdea() {
       });
     }, { threshold: 0.1 });
 
-    // Observes elements with fadeInUp class
     const hiddenElements = document.querySelectorAll(`.${styles.fadeInUp}`);
     hiddenElements.forEach((el) => observer.observe(el));
 
     return () => hiddenElements.forEach((el) => observer.unobserve(el));
-  }, []);
+  }, [selectedGiftType]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -66,192 +70,305 @@ export default function GiftIdea() {
 
   const handleCloseModal = () => setShowModal(false);
 
+  const handleCardClick = (type) => {
+    setSelectedGiftType(type);
+    setFormData({
+      recipient: "", interests: "", budget: "", 
+      occasion: "", personality: "", age_range: "", filters: "", message_style: "",
+      gift_category: ""
+    });
+  };
+
+  const handleBackToSelection = () => {
+    setSelectedGiftType(null);
+  };
+
   return (
     <div className={styles.page}>
       <Header />
 
       <main className={styles.main} style={{ backgroundImage: `url(${heroImage})` }}>
         <div className={styles.container}>
-          {/* Animate Title Fade Up */}
-          <h1 className={`${styles.pageTitle} ${styles.fadeInUp}`}>Generate Gift Ideas</h1>
+          <h1 className={`${styles.pageTitle} ${styles.fadeInUp}`}>
+            Generate the Perfect Gift
+          </h1>
+          <p className={`${styles.pageSubtitle} ${styles.fadeInUp}`}>
+             Choose a gift style — quick surprise or thoughtful personalization.
+          </p>
 
-          <section className={styles.formSection}>
-            <Card className={`${styles.giftCard} ${styles.fadeInUp}`}>
-              <form className={styles.form} onSubmit={handleSubmit}>
+          {/* SELECTION CARDS */}
+          {selectedGiftType === null && (
+            <div className={`${styles.cardSelection} ${styles.fadeInUp}`}>
+              <div 
+                className={styles.selectionCard}
+                onClick={() => handleCardClick('surprise')}
+              >
+                <div className={styles.cardIcon}>🎉</div>
+                <h2 className={styles.cardTitle}>Exciting Surprise</h2>
+                <p className={styles.cardDesc}>For quick, fun, instant suggestions</p>
+              </div>
+
+              <div 
+                className={styles.selectionCard}
+                onClick={() => handleCardClick('heartfelt')}
+              >
+                <div className={styles.cardIcon}>💖</div>
+                <h2 className={styles.cardTitle}>Heartfelt Gift</h2>
+                <p className={styles.cardDesc}>For thoughtful, personalized recommendations</p>
+              </div>
+            </div>
+          )}
+
+          {/* SURPRISE FORM */}
+          {selectedGiftType === 'surprise' && (
+             <section className={styles.formSection}>
+               <Card className={`${styles.giftCard} ${styles.fadeInUp}`}>
+                 <button 
+                   className={styles.backButton}
+                   onClick={handleBackToSelection}
+                   type="button"
+                 >
+                   ← Back to Selection
+                 </button>
+
+                 <form className={styles.form} onSubmit={handleSubmit}>
+                   <div className={styles.formGroup}>
+                     <label htmlFor="budget" className={styles.label}>
+                       Budget Range
+                     </label>
+                     <select
+                       id="budget"
+                       name="budget"
+                       value={formData.budget}
+                       onChange={handleInputChange}
+                       className={styles.select}
+                       required
+                     >
+                       <option value="">Select your budget</option>
+                       <option value="under100">Under ₱100</option>
+                       <option value="100-250">₱100–₱250</option>
+                       <option value="250-500">₱250–₱500</option>
+                       <option value="1000+">₱1,000+</option>
+                       <option value="unlimited">No budget limit</option>
+                     </select>
+                   </div>
+
+                   <div className={styles.formGroup}>
+                     <label htmlFor="gift_category" className={styles.label}>
+                       Gift Category
+                     </label>
+                     <input
+                       type="text"
+                       id="gift_category"
+                       name="gift_category"
+                       value={formData.gift_category}
+                       onChange={handleInputChange}
+                       placeholder='e.g., "something practical", "something funny"'
+                       className={styles.input}
+                       required
+                     />
+                   </div>
+
+                   <button type="submit" className={styles.submitButton} disabled={loading}>
+                     {loading ? "Generating..." : "🎁 Generate Surprise Gift"}
+                   </button>
+                   {error && <p className={styles.errorText}>{error}</p>}
+                 </form>
+               </Card>
+             </section>
+          )}
+
+          {/* HEARTFELT FORM */}
+          {selectedGiftType === 'heartfelt' && (
+            <section className={styles.formSection}>
+              <Card className={`${styles.giftCard} ${styles.fadeInUp}`}>
+                <button 
+                   className={styles.backButton}
+                   onClick={handleBackToSelection}
+                   type="button"
+                 >
+                   ← Back to Selection
+                 </button>
+
+                <form className={styles.form} onSubmit={handleSubmit}>
+
+                    <div className={styles.formGroup}>
+                    <label htmlFor="occasion" className={styles.label}>
+                      Occasion
+                    </label>
+                    <select 
+                      id="occasion" 
+                      name="occasion" 
+                      className={styles.select}
+                      value={formData.occasion}
+                      onChange={handleInputChange}
+                      required
+                    >
+                      <option value="">Select occasion</option>
+                      <option value="birthday">Birthday</option>
+                      <option value="anniversary">Anniversary</option>
+                      <option value="graduation">Graduation</option>
+                      <option value="christmas">Christmas</option>
+                      <option value="valentines">Valentine&apos;s Day</option>
+                      <option value="mothersday">Mother&apos;s Day</option>
+                      {/* --- NEW UPDATE / CHANGES FROM FIGMA: Added Father's Day --- */}
+                      <option value="fathersday">Father&apos;s Day</option>
+                      <option value="wedding">Wedding</option>
+                      <option value="babyshower">Baby Shower</option>
+                      <option value="debut">Debut</option>
+                      <option value="teachersday">Teacher&apos;s Day</option>
+                      <option value="randomsurprise">Random Surprise</option>
+                    </select>
+                  </div>
 
                   <div className={styles.formGroup}>
-                  <label htmlFor="occasion" className={styles.label}>
-                    Occasion Selector
-                  </label>
-                  <select 
-                    id="occasion" 
-                    name="occasion" 
-                    className={styles.select}
-                    value={formData.occasion}
-                    onChange={handleInputChange}
-                    required
-                  >
-                    <option value="">Select occasion</option>
-                    <option value="birthday">Birthday</option>
-                    <option value="anniversary">Anniversary</option>
-                    <option value="graduation">Graduation</option>
-                    <option value="christmas">Christmas</option>
-                    <option value="valentines">Valentine's Day</option>
-                    <option value="mothersday">Mother's Day / Father's Day</option>
-                    <option value="wedding">Wedding / Engagement</option>
-                    <option value="babyshower">Baby Shower</option>
-                    <option value="randomsurprise">Random Surprise</option>
-                  </select>
-                </div>
+                    <label htmlFor="recipient" className={styles.label}>Gift Recipient</label>
+                    <input
+                      type="text"
+                      id="recipient"
+                      name="recipient"
+                      value={formData.recipient}
+                      onChange={handleInputChange}
+                      placeholder='Input Name or Relationship e.g. "Mom"'
+                      className={styles.input}
+                      required
+                    />
+                  </div>
 
-                <div className={styles.formGroup}>
-                  <label htmlFor="recipient" className={styles.label}>Recipient Name / Relationship</label>
-                  <input
-                    type="text"
-                    id="recipient"
-                    name="recipient"
-                    value={formData.recipient}
-                    onChange={handleInputChange}
-                    placeholder="e.g., Mom, best friend, boyfriend"
-                    className={styles.input}
-                    required
-                  />
-                </div>
+                  <div className={styles.formGroup}>
+                    <label htmlFor="age_range" className={styles.label}>
+                      Age Range
+                    </label>
+                    <select 
+                      id="age_range" 
+                      name="age_range" 
+                      className={styles.select}
+                      value={formData.age_range}
+                      onChange={handleInputChange}
+                      required
+                    >
+                      <option value="">Select age range</option>
+                      <option value="0-10">0–10</option>
+                      <option value="11-15">11–15</option>
+                      <option value="16-20">16–20</option>
+                      <option value="21-30">21–30</option>
+                      <option value="31-40">31–40</option>
+                      <option value="41-50">41–50</option>
+                      <option value="51-60">51–60</option>
+                      <option value="61+">61+</option>
+                    </select>
+                  </div>
 
-                <div className={styles.formGroup}>
-                  <label htmlFor="age_range" className={styles.label}>
-                    Age Range
-                  </label>
-                  <select 
-                    id="age_range" 
-                    name="age_range" 
-                    className={styles.select}
-                    value={formData.age_range}
-                    onChange={handleInputChange}
-                    required
-                  >
-                    <option value="">Select age range</option>
-                    <option value="0-10">0–10</option>
-                    <option value="11-15">11–15</option>
-                    <option value="16-20">16–20</option>
-                    <option value="21-30">21–30</option>
-                    <option value="31-40">31–40</option>
-                    <option value="41-50">41–50</option>
-                    <option value="51-60">51–60</option>
-                    <option value="61+">61+</option>
-                  </select>
-                </div>
+                  <div className={styles.formGroup}>
+                    <label htmlFor="interests" className={styles.label}>Recipient&apos;s Interests</label>
+                    <textarea
+                      id="interests"
+                      name="interests"
+                      value={formData.interests}
+                      onChange={handleInputChange}
+                      placeholder="e.g., cooking, anime, art, music, travel, etc."
+                      rows={4}
+                      className={styles.textarea}
+                      required
+                    />
+                  </div>
 
-                <div className={styles.formGroup}>
-                  <label htmlFor="interests" className={styles.label}>Recipient Interests</label>
-                  <textarea
-                    id="interests"
-                    name="interests"
-                    value={formData.interests}
-                    onChange={handleInputChange}
-                    placeholder="e.g., cooking, reading, gaming"
-                    rows={4}
-                    className={styles.textarea}
-                    required
-                  />
-                </div>
+                   <div className={styles.formGroup}>
+                    <label htmlFor="personality" className={styles.label}>
+                      Personality
+                    </label>
+                    <select 
+                      id="personality" 
+                      name="personality" 
+                      className={styles.select}
+                      value={formData.personality}
+                      onChange={handleInputChange}
+                      required
+                    >
+                      <option value="">Select personality style</option>
+                      <option value="practical">Practical</option>
+                      <option value="sentimental">Sentimental</option>
+                      <option value="creative">Creative</option>
+                      <option value="techy">Techy</option>
+                      <option value="fashionable">Fashionable</option>
+                      <option value="foodlover">Food Lover</option>
+                      <option value="adventurous">Adventurous</option>
+                      <option value="minimalist">Minimalist</option>
+                    </select>
+                  </div>
 
-                 <div className={styles.formGroup}>
-                  <label htmlFor="personality" className={styles.label}>
-                    Personality Style
-                  </label>
-                  <select 
-                    id="personality" 
-                    name="personality" 
-                    className={styles.select}
-                    value={formData.personality}
-                    onChange={handleInputChange}
-                    required
-                  >
-                    <option value="">Select personality style</option>
-                    <option value="practical">Practical</option>
-                    <option value="sentimental">Sentimental</option>
-                    <option value="creative">Creative</option>
-                    <option value="techy">Techy</option>
-                    <option value="fashionable">Fashionable</option>
-                    <option value="foodlover">Food Lover</option>
-                    <option value="adventurous">Adventurous</option>
-                    <option value="minimalist">Minimalist</option>
-                    <option value="other">Other</option>
-                  </select>
-                </div>
+                  <div className={styles.formGroup}>
+                    <label htmlFor="filters" className={styles.label}>
+                      Gift Filters
+                    </label>
+                    <select 
+                      id="filters" 
+                      name="filters" 
+                      className={styles.select}
+                      value={formData.filters}
+                      onChange={handleInputChange}
+                      required
+                    >
+                      <option value="">Select gift filter</option>
+                      <option value="diy">DIY / Handmade</option>
+                      <option value="personalized">Personalized Gifts</option>
+                      <option value="ecofriendly">Eco-Friendly</option>
+                      <option value="experience">Experience-Based Gifts</option>
+                      <option value="budgetsaver">Budget Saver Options</option>
+                      <option value="cute">Cute / Aesthetic</option>
+                      <option value="homeessentials">Home Essentials</option>
+                      <option value="foodsnacks">Food & Snacks</option>
+                    </select>
+                  </div>
 
-                <div className={styles.formGroup}>
-                  <label htmlFor="filters" className={styles.label}>
-                    Gift Filters
-                  </label>
-                  <select 
-                    id="filters" 
-                    name="filters" 
-                    className={styles.select}
-                    value={formData.filters}
-                    onChange={handleInputChange}
-                    required
-                  >
-                    <option value="">Select gift filter</option>
-                    <option value="diy">DIY / Handmade</option>
-                    <option value="personalized">Personalized Gifts</option>
-                    <option value="ecofriendly">Eco-Friendly</option>
-                    <option value="experience">Experience-Based Gifts</option>
-                    <option value="budgetsaver">Budget Saver Options</option>
-                    <option value="cute">Cute / Aesthetic</option>
-                    <option value="homeessentials">Home Essentials</option>
-                    <option value="foodsnacks">Food & Snacks</option>
-                  </select>
-                </div>
+                  <div className={styles.formGroup}>
+                    <label htmlFor="message_style" className={styles.label}>
+                      Message Style
+                    </label>
+                    <select 
+                      id="message_style" 
+                      name="message_style" 
+                      className={styles.select}
+                      value={formData.message_style}
+                      onChange={handleInputChange}
+                      required
+                    >
+                      <option value="">Select message style</option>
+                      <option value="sweetenglish">Sweet (English)</option>
+                      <option value="sweettagalog">Sweet (Tagalog)</option>
+                      <option value="funny">Funny</option>
+                      <option value="shortsimple">Short & Simple</option>
+                      <option value="emotional">Emotional</option>
+                    </select>
+                  </div>
 
-                <div className={styles.formGroup}>
-                  <label htmlFor="message_style" className={styles.label}>
-                    Sweet English & Tagalog Message
-                  </label>
-                  <select 
-                    id="message_style" 
-                    name="message_style" 
-                    className={styles.select}
-                    value={formData.message_style}
-                    onChange={handleInputChange}
-                    required
-                  >
-                    <option value="">Select message style</option>
-                    <option value="sweetenglish">Sweet (English)</option>
-                    <option value="sweettagalog">Sweet (Tagalog)</option>
-                    <option value="funny">Funny / Lighthearted</option>
-                    <option value="shortsimple">Short & Simple</option>
-                    <option value="heartfelt">Heartfelt / Emotional</option>
-                  </select>
-                </div>
+                  <div className={styles.formGroup}>
+                    <label htmlFor="budget" className={styles.label}>Budget Range</label>
+                    <select
+                      id="budget"
+                      name="budget"
+                      value={formData.budget}
+                      onChange={handleInputChange}
+                      className={styles.select}
+                      required
+                    >
+                      <option value="">Select your budget</option>
+                      <option value="100-500">₱100 - ₱500</option>
+                      <option value="500-1000">₱500 - ₱1,000</option>
+                      <option value="1000-3000">₱1,000 - ₱3,000</option>
+                      <option value="3000-5000">₱3,000 - ₱5,000</option>
+                      <option value="5000+">₱5,000+</option>
+                    </select>
+                  </div>
 
-                <div className={styles.formGroup}>
-                  <label htmlFor="budget" className={styles.label}>Budget Range</label>
-                  <select
-                    id="budget"
-                    name="budget"
-                    value={formData.budget}
-                    onChange={handleInputChange}
-                    className={styles.select}
-                    required
-                  >
-                    <option value="">Select your budget</option>
-                    <option value="100-500">₱100 - ₱500</option>
-                    <option value="500-1000">₱500 - ₱1,000</option>
-                    <option value="1000-3000">₱1,000 - ₱3,000</option>
-                    <option value="3000-5000">₱3,000 - ₱5,000</option>
-                    <option value="5000+">₱5,000+</option>
-                  </select>
-                </div>
-
-                <button type="submit" className={styles.submitButton} disabled={loading}>
-                  {loading ? "Generating..." : "Generate Ideas"}
-                </button>
-                {error && <p className={styles.errorText}>{error}</p>}
-              </form>
-            </Card>
-          </section>
+                  <button type="submit" className={styles.submitButton} disabled={loading}>
+                    {loading ? "Generating..." : "💝 Generate Heartfelt Gifts"}
+                  </button>
+                  {error && <p className={styles.errorText}>{error}</p>}
+                </form>
+              </Card>
+            </section>
+          )}
 
           {loading && (
             <section className={styles.loading}>
@@ -265,7 +382,6 @@ export default function GiftIdea() {
       {showModal && (
         <div className={styles.modalOverlay} onClick={handleCloseModal}>
           <div className={styles.giftBoxModal} onClick={(e) => e.stopPropagation()}>
-            {/* --- ADDED BACK: RIBBONS FOR GIFT BOX EFFECT --- */}
             <div className={styles.ribbon}></div>
             <div className={styles.ribbonVertical}></div>
             
@@ -289,6 +405,24 @@ export default function GiftIdea() {
                         <div className={styles.giftDetails}>
                           <h3 className={styles.giftTitle}>{gift.title}</h3>
                           <p className={styles.giftDescription}>{gift.description}</p>
+                          
+                          {/* --- NEW UPDATE / CHANGES FROM FIGMA: SUGGESTED ITEMS --- */}
+                          {gift.suggestedItems && gift.suggestedItems.length > 0 && (
+                            <div className={styles.suggestedItems}>
+                              <h4 className={styles.suggestedItemsTitle}>
+                                🛒 Suggested Items to Buy:
+                              </h4>
+                              <ul className={styles.suggestedItemsList}>
+                                {gift.suggestedItems.map((item, idx) => (
+                                  <li key={idx} className={styles.suggestedItem}>
+                                    {item}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                          {/* -------------------------------------------------------- */}
+
                           <div className={styles.giftMeta}>
                             <span className={styles.giftReason}><strong>Why:</strong> {gift.reason}</span>
                             <span className={styles.giftBudget}><strong>Budget:</strong> {gift.budget}</span>

@@ -56,7 +56,7 @@
 .pageTitle {
   text-align: center;
   margin-bottom: 2rem;
-  color: var(--color-white); /* Changed to white for better contrast */
+  color: var(--color-white);
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
@@ -64,11 +64,23 @@
   margin-bottom: 3rem;
 }
 
+/* --- UPDATED: White Card Style & Header Size --- */
+.aboutCard {
+  background-color: #ffffff !important; /* Changed back to White */
+  color: #654321; /* Deep Brown text for readability */
+}
+
+/* Reduced size for Our Mission, Project Overview, The Developers */
+.aboutCard h2 {
+  font-size: 1.3rem; 
+  margin-bottom: 0.2rem;
+}
+
 .missionText {
-  font-size: 1.2rem;
+  font-size: 1rem;
   text-align: center;
-  color: var(--color-primary);
-  font-weight: 500;
+  color: #654321; /* Updated to Deep Brown to match card */
+  font-weight: 450;
 }
 
 .sectionTitle {
@@ -76,6 +88,18 @@
   margin-bottom: 2rem;
 }
 
+/* Styles for the Project Overview List */
+.overviewList {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+}
+
+.overviewList li {
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+}
+
+/* Existing tech grid styles (kept just in case used elsewhere or future use) */
 .techGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));

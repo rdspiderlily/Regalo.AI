@@ -85,36 +85,42 @@ export default function Home() {
           <div className={styles.container}>
             <h2 className={styles.sectionTitle}>How It Works</h2>
             <div className={styles.stepGrid}>
-              {/* Changed to Pop In */}
+              
+              {/* Step 1: Mode Selection */}
               <div className={`${styles.step} ${styles.popIn}`}>
                 <div className={styles.stepNumber}>1</div>
-                <h3>Enter recipient details</h3>
-                <p>Tell us about who you're buying for</p>
+                <h3>Choose a gift style</h3>
+                <p>Select between a quick "Exciting Surprise" or a "Heartfelt Gift"</p>
               </div>
 
+              {/* Step 2: Customization (covers both Short & Long forms) */}
               <div className={`${styles.step} ${styles.popIn}`}>
                 <div className={styles.stepNumber}>2</div>
-                <h3>Enter interests</h3>
-                <p>Share what they love and enjoy</p>
+                <h3>Customize details</h3>
+                <p>Enter the occasion, interests, or specific category details</p>
               </div>
 
+              {/* Step 3: Budget */}
               <div className={`${styles.step} ${styles.popIn}`}>
                 <div className={styles.stepNumber}>3</div>
-                <h3>Set a gift budget</h3>
-                <p>Choose a comfortable price range</p>
+                <h3>Set a budget</h3>
+                <p>Choose a price range that fits your wallet</p>
               </div>
 
+              {/* Step 4: Generate */}
               <div className={`${styles.step} ${styles.popIn}`}>
                 <div className={styles.stepNumber}>4</div>
-                <h3>Click "Generate Ideas"</h3>
-                <p>Let our AI work its magic</p>
+                <h3>Click "Generate"</h3>
+                <p>Let our AI curate the perfect recommendations</p>
               </div>
 
+              {/* Step 5: Results + Suggested Items */}
               <div className={`${styles.step} ${styles.popIn}`}>
                 <div className={styles.stepNumber}>5</div>
-                <h3>Get personalized suggestions</h3>
-                <p>Receive thoughtful gift recommendations</p>
+                <h3>Get ideas</h3>
+                <p>Receive thoughtful suggestions and specific items to buy</p>
               </div>
+
             </div>
           </div>
         </section>

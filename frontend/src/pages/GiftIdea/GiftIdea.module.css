@@ -43,6 +43,86 @@
 
 /* --- End Animations --- */
 
+/* --- Selection Styles --- */
+
+.pageSubtitle {
+  text-align: center;
+  margin-bottom: 3rem;
+  color: var(--color-white);
+  font-size: 1.2rem;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Card Selection - Two Big Cards Side by Side */
+.cardSelection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.selectionCard {
+  background-color: #fdfbd4; /* Warm Cream */
+  border-radius: 16px;
+  padding: 3rem 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 3px solid transparent;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.selectionCard:hover {
+  transform: translateY(-8px);
+  border-color: var(--color-primary);
+  box-shadow: 0 8px 24px rgba(191, 91, 83, 0.3);
+}
+
+.cardIcon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.cardTitle {
+  color: var(--color-primary);
+  margin-bottom: 0.75rem;
+  font-size: 1.75rem;
+}
+
+.cardDesc {
+  color: #654321; /* Deep Brown */
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Back Button */
+.backButton {
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+}
+
+.backButton:hover {
+  background-color: rgba(191, 91, 83, 0.1);
+  transform: translateX(-5px);
+}
+
+/* --- End Selection Styles --- */
+
 .container {
   max-width: 1000px;
   margin: 0 auto;
@@ -53,7 +133,7 @@
 
 .pageTitle {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem; /* Adjusted margin */
   color: var(--color-white);
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
@@ -296,7 +376,7 @@
   /* Box Styles */
   background-color: #FDFBD4; /* Warm Cream Background */
   
-  /* 👇 CHANGED THIS TO DEEP BROWN 👇 */
+  /* --- NEW UPDATE / CHANGES FROM FIGMA: CHANGED TO DEEP BROWN --- */
   color: #654321; 
   
   /* REDUCED PADDING to crop height */
@@ -420,11 +500,77 @@
   transform: translateY(0);
 }
 
+.errorText {
+  color: #bf5b53;
+  text-align: center;
+  margin-top: 1rem;
+  font-weight: 600;
+}
+
+/* --- NEW UPDATE / CHANGES FROM FIGMA: Suggested Items Styles --- */
+
+.suggestedItems {
+  margin-bottom: 0.75rem;
+  padding: 0.75rem;
+  background-color: rgba(191, 91, 83, 0.05);
+  border-radius: 8px;
+  border-left: 3px solid var(--color-cta);
+}
+
+.suggestedItemsTitle {
+  color: var(--color-cta);
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.suggestedItemsList {
+  margin: 0;
+  padding-left: 1.5rem;
+  list-style-type: disc;
+}
+
+.suggestedItem {
+  color: var(--color-text);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  margin-bottom: 0.25rem;
+}
+
+.suggestedItem:last-child {
+  margin-bottom: 0;
+}
+/* ------------------------------------------------------------- */
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .main {
     padding: 2rem 1rem;
   }
+
+  /* Update for new Layout */
+  .pageSubtitle {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .cardSelection {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .selectionCard {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .cardIcon {
+    font-size: 3rem;
+  }
+
+  .cardTitle {
+    font-size: 1.5rem;
+  }
+  /* End update */
 
   .giftBoxModal {
     max-width: 95%;
