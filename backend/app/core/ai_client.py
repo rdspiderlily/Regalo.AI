@@ -14,7 +14,7 @@ async def generate_gift_ideas(prompt: str):
     }
 
     try:
-        async with httpx.AsyncClient(timeout=15) as client:
+        async with httpx.AsyncClient(timeout=25) as client:
             response = await client.post(url, json=payload)
             response.raise_for_status()
             data = response.json()
