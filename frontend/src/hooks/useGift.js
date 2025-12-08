@@ -12,9 +12,9 @@ export function useGift() {
     setError(null);
     try {
       if (formData.gift_category) {
-        // Use surprise API if gift_category exists
+        // Use surprise API 
         const results = await fetchSurprise({
-          budget_range: formData.budget,
+          budget_range: formData.budget_range,
           gift_category: formData.gift_category
         });
         setIdeas(results);
@@ -26,9 +26,9 @@ export function useGift() {
         return results;
       }
     } catch (err) {
-      setError(err.message || "Error generating gift ideas");
+      setError("Please try again in a few minutes");
       setIdeas([]);
-      throw err;
+      throw new Error("Frontend error suppressed");
     } finally {
       setLoading(false);
     }

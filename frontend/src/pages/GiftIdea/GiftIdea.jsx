@@ -62,7 +62,7 @@ export default function GiftIdea() {
       setIdeas(newIdeas);
     } catch (err) {
       console.error(err);
-      setError("Failed to generate new ideas. Please try again.");
+      setError("Please try again in a few minutes");
     } finally {
       setModalLoading(false);
     }
