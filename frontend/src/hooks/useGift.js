@@ -49,13 +49,20 @@ export function useGift() {
   const generateGiftIdeas = async (formData) => {
     setLoading(true);
     setError(null);
+
+    const controller = new AbortController();
+    const timeout = setTimeout(() => {
+      controller.abort();
+    }, 25000);
+
     try {
       const results = formData.gift_category
         ? await fetchSurprise({
             budget_range: formData.budget_range,
             gift_category: formData.gift_category,
+            signal: controller.signal
           })
-        : await fetchIdeas(formData);
+        : await fetchIdeas({formData, signal: controller.signal});
 
       if (!results || results.length === 0) {
         setIdeas([]);
@@ -67,7 +74,11 @@ export function useGift() {
       return results;
     } catch (err) {
       setIdeas([]);
-      setError("Please try again in a few minutes");
+      if (err.name === "AbortError") {
+        setError("Request timed out. Please try again.");
+      } else {
+        setError("Please try again in a few minutes");
+      }
       throw new Error("Frontend error suppressed");
     } finally {
       setLoading(false);
