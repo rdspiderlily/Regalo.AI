@@ -3,13 +3,13 @@ from pydantic import BaseModel
 
 class GiftRequest(BaseModel):
     recipient: str
+    gender_identity: str
     interests: str
     budget: str
     
     occasion: str
     personality: str    
     age_range: str
-    filters: str          
     message_style: str
 
 class SGiftRequest(BaseModel):

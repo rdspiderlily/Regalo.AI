@@ -5,11 +5,11 @@ from app.utils.prompt_formatter import format_gift_prompt, s_format_gift_prompt
 from app.schemas.gift_schema import GiftIdea
 
 async def get_gift_ideas(
-    recipient: str, interests: str, budget: str,
+    recipient: str, gender_identity: str, interests: str, budget: str,
     occasion: str, personality: str, age_range: str,
-    filters: str, message_style: str
+    message_style: str
     ):
-    prompt = format_gift_prompt(recipient, interests, budget, occasion, personality, age_range, filters, message_style)
+    prompt = format_gift_prompt(recipient, gender_identity, interests, budget, occasion, personality, age_range, message_style)
     raw_output = await generate_gift_ideas(prompt)
 
     if isinstance(raw_output, list):

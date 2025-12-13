@@ -1,13 +1,11 @@
 // frontend/src/hooks/useGift.js
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { generateGiftIdeas as fetchIdeas, generateSurpriseGift as fetchSurprise } from "../services/giftAPI";
 
 export function useGift() {
   const [ideas, setIdeas] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const navigate = useNavigate();
 
   const generateGiftIdeas = async (formData) => {
     setLoading(true);
@@ -28,7 +26,6 @@ export function useGift() {
       if (!results || results.length === 0) {
         setIdeas([]);
         setError("Still thinking... Please try again in a few minutes."); 
-        navigate("/", { replace: true });
         return [];
       }
 
@@ -40,10 +37,10 @@ export function useGift() {
         setError("Request timed out. Please try again.");
       } else {
         setError("Please try again in a few minutes.");
-        navigate("/", { replace: true });
       }
       throw new Error("Frontend error suppressed");
     } finally {
+      clearTimeout(timeout);
       setLoading(false);
     }
   };

@@ -10,9 +10,9 @@ router = APIRouter(prefix="/gift", tags=["Gift Ideas"])
 @router.post("/", response_model=GiftResponse)
 async def generate_gift(request: GiftRequest, _: bool = Depends(rate_limiter)):
     ideas = await get_gift_ideas(
-        request.recipient, request.interests, request.budget,
+        request.recipient, request.gender_identity, request.interests, request.budget,
         request.occasion, request.personality, request.age_range, 
-        request.filters, request.message_style
+        request.message_style
     )
     return {"ideas": ideas}
 
