@@ -429,6 +429,15 @@
   font-size: 1.25rem;
 }
 
+/* PICTURE ABOVE GIFT IDEA TITLE */
+.giftImage {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
 .giftDetails {
   flex: 1;
 }
